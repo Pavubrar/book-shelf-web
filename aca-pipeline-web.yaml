@@ -1,0 +1,19 @@
+trigger:
+  branches:
+    include:
+      - feature/aca-cicd
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: Docker@2
+  displayName: Build and Push Web Image
+  inputs:
+    command: buildAndPush
+    repository: bookshelf-web
+    dockerfile: 'Dockerfile'
+    containerRegistry: 'sc-acr-bookshelf'
+    tags: |
+      latest
