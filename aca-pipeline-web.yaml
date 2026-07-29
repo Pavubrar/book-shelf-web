@@ -13,7 +13,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: bookshelf-web
-    dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    dockerfile: 'Dockerfile'
     containerRegistry: 'sc-acr-bookshelf'
     tags: |
       latest
