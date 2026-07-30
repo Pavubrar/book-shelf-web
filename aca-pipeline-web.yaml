@@ -5,6 +5,12 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
+stages:
+- stage: Build
+  displayName: Build and Push Image
+
+  jobs: 
+    -jon: Build
 
 steps:
 
@@ -17,3 +23,26 @@ steps:
     containerRegistry: 'sc-acr-bookshelf'
     tags: |
       latest
+
+- stage: Deploy 
+  displayName: Deploy to ACA 
+  dependsOn: Build 
+
+  jobs:
+    -job: Deploy 
+
+    steps:
+      - task: AzureCLI@2
+        displayName: Deplo Web ACA 
+
+        inputs: 
+          azureSubscription: 'Book-App-Connection'
+          scriptType: pscore
+
+          scriptLocation: inlineScript
+
+          inlineScript: |
+            az containerapp update `
+            --name bookshelf-web-app `
+            --resource-group rg-bookshelf-aca-dev `
+            --image bookshelfacr2026.azurecr.io/bookshelf-web:latest
