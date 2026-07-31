@@ -20,7 +20,7 @@ stages:
           command: buildAndPush
           repository: bookshelf-web
           dockerfile: 'Dockerfile'
-          containerRegistry: 'sc-acr-bookshelf'
+          containerRegistry: 'vn-sc-acr-bookshelf'
           tags: |
             latest
 
