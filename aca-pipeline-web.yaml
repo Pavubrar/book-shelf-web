@@ -2,7 +2,8 @@ trigger:
   branches:
     include:
       - feature/aca-cicd
-
+variables:
+- group: bookshelf-web-secrets
 pool:
   vmImage: ubuntu-latest
 stages:
@@ -21,8 +22,12 @@ stages:
           repository: bookshelf-web
           dockerfile: 'Dockerfile'
           containerRegistry: 'vn-sc-acr-bookshelf'
+          arguments: |
+            --build-arg VITE_API_BASE_URL=$(VITE_API_BASE_URL)
+            
           tags: |
             latest
+            $(Build.BuildID)
 
 - stage: Deploy 
   displayName: Deploy to ACA 
@@ -45,4 +50,4 @@ stages:
             az containerapp update `
             --name bookshelf-web-app `
             --resource-group rg-bookshelf-aca-dev `
-            --image bookshelfacr2026.azurecr.io/bookshelf-web:latest
+            --image bookshelfacr2026.azurecr.io/bookshelf-web: $(Build.BuildID)
