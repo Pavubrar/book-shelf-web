@@ -50,4 +50,4 @@ stages:
             az containerapp update `
             --name bookshelf-web-app `
             --resource-group rg-bookshelf-aca-dev `
-            --image bookshelfacr2026.azurecr.io/bookshelf-web: $(Build.BuildID)
+            --image bookshelfacr2026.azurecr.io/bookshelf-web:$(Build.BuildID)
