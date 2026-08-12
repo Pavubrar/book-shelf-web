@@ -3,7 +3,7 @@ trigger:
     include:
       - feature/aca-cicd
 variables:
-- group: bookshelf-web-secrets
+- group: bookshelf-api-secrets-aca
 pool:
   vmImage: ubuntu-latest
 stages:
@@ -24,7 +24,7 @@ stages:
           containerRegistry: 'vn-sc-acr-bookshelf'
           arguments: |
             --build-arg VITE_API_BASE_URL=$(VITE_API_BASE_URL)
-            
+
           tags: |
             latest
             $(Build.BuildID)
