@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: bookshelf-web
+  namespace: bookshelf
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: bookshelf-web
+
+  template:
+    metadata:
+      labels:
+        app: bookshelf-web
+
+    spec:
+      containers:
+        - name: bookshelf-web
+          image: bookshelf-web:k8s
+          ports:
+            - containerPort: 80
