@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
         - name: bookshelf-web
-          image: bookshelf-web:k8s
+          image: bookshelf-web:k8s-v2
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
