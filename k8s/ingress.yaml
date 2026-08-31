@@ -4,6 +4,10 @@ kind: Ingress
 metadata:
   name: bookshelf-ingress
   namespace: bookshelf
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
 
 spec:
   ingressClassName: nginx
@@ -12,8 +16,8 @@ spec:
     - http:
         paths:
 
-          - path: /api
-            pathType: Prefix
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: bookshelf-api
