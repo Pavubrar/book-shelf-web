@@ -46,7 +46,12 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
 }
 
 export function buildAssetUrl(path?: string | null) {
-  return path ? new URL(path, API_BASE_URL).toString() : null
+  if (!path) return null;
+  if (path.startsWith('http')) {
+    return path;
+    }
+   return new URL(path, API_BASE_URL).toString();
+  
 }
 
 export function getExternalLoginUrl(provider: string) {
